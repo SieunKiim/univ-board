@@ -19,18 +19,23 @@ public class LoginService {
 
 
     public boolean save(User user) {
-        if (userExists(user.getUserId()).isEmpty()) { // 중복 확인
+        if (userRepository.existsByUserId(user.getUserId())) { // 중복 확인
+            return false;
+        } else {
             userRepository.save(user);
             log.info("저장됨 | " + String.valueOf(user));
             return true;
-        } else {
-            return false;
         }
     }
 
-    public Optional<User> userExists(String userId) {
-        return userRepository.findById(userId);
+    public boolean noEmptyInstance(User user) { // 비어있는 값이 있는지 확인 (비어있으면 false 반환)
+        if (user.getUserId().length() != 0 && user.getEmail().length() != 0 && user.getNickName().length() != 0 && user.getPwd().length() != 0) {
+            return true;
+        }
+        return false;
+
     }
+
 
     public String makeHash(String pwd) { // 비밀번호 해싱
         return String.valueOf(pwd.hashCode());
