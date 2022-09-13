@@ -10,9 +10,11 @@
 <body>
 회원가입 어서와
 <div class="container-lg">
-    <form>
-        ID : <input id='userid' type='text'/>
-        비밀번호 : <input id='pwd' type='password'/>
+    <form action="/login/sign-up" method="post">
+        사용자 이름 : <input id="nickName" name="nickName" type="text"/><br>
+        로그인 ID : <input id="userId" name="userId" type="text"/><br>
+        비밀번호 : <input id="pwd" name="pwd" type="password"/><br>
+        Email : <input id="email" name="email" type="email"><br>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
 </div>
