@@ -10,11 +10,12 @@
 <body>
 <h1>로그인 페이지</h1>
 <div class="m-4">
-    <form>
+    <form action="/login/sign-in" method="post" id="signInForm">
         <input type="text" id="userId" class="fadeIn second px-2" name="userId" placeholder="user id">
         <input type="text" id="pwd" class="fadeIn third px-2" name="pwd" placeholder="password">
-        <input type="submit" class="fadeIn fourth px-2" value="Log In">
+<!--        <input type="submit" class="fadeIn fourth px-2" value="Log In">-->
     </form>
+    <button form="signInForm" type="submit" class="btn btn-primary m-2">Log In</button>
 </div>
 <div class="m-4">
     <a href="/login/sign-up">회원가입하기</a>

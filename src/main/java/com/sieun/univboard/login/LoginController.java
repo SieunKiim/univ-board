@@ -10,9 +10,9 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/login")
 public class LoginController {
 
-    private final LoginServiceImpl loginServiceImpl;
+    private final LoginService loginServiceImpl;
 
-    public LoginController(LoginServiceImpl loginServiceImpl) {
+    public LoginController(LoginService loginServiceImpl) {
         this.loginServiceImpl = loginServiceImpl;
     }
 
@@ -21,10 +21,14 @@ public class LoginController {
         return "login/sign-in";
     }
 
-//    @PostMapping("/sign-in")
-//    public String signIn(LoginSigninDTO loginSigninDTO) {
-//
-//    }
+    @PostMapping("/sign-in")
+    public String signIn(LoginSignInDTO loginSignInDTO) {
+        if (loginServiceImpl.signIn(loginSignInDTO)) {
+            return "index";
+        } else {
+            return "login/sign-in";
+        }
+    }
 
     @GetMapping("/sign-up")
     public String signUp() {
@@ -39,7 +43,7 @@ public class LoginController {
         User user = new User(loginSignUpDTO.getUserId(), loginSignUpDTO.getNickName(), newPwd, loginSignUpDTO.getEmail());
 
         if(!loginServiceImpl.noEmptyInstance(user)){
-            log.info("비어있는 정보 있음" + user);
+            log.info("비어있는 정보 있음");
             return "login/sign-up";
         }
         if (loginServiceImpl.save(user)) { // 저장이 된 경우

@@ -5,6 +5,8 @@ import com.sieun.univboard.user.UserRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 
 @Slf4j
 @Service
@@ -33,6 +35,26 @@ public class LoginServiceImpl implements LoginService{
         }
         return false;
 
+    }
+
+    public boolean signIn(LoginSignInDTO loginSignInDTO) {
+        String userId = loginSignInDTO.getUserId();
+        String pwd = loginSignInDTO.getPwd();
+        String hashedPwd = makeHash(pwd);
+        if (userRepository.existsById(userId)) { // 아이디 존재
+            log.info(userRepository.findById(userId) + " " + hashedPwd + " " + pwd);
+            User findById = userRepository.getReferenceById(userId);
+            if (findById.getPwd().equals(hashedPwd)) {
+                log.info("로그인 완료");
+                return true;
+            } else {
+                log.info("비밀번호 틀림");
+                return false;
+            }
+        } else { // 아이디 없음
+            log.info("아이디 없음");
+            return false;
+        }
     }
 
 

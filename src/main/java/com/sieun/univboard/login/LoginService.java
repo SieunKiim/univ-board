@@ -7,7 +7,7 @@ public interface LoginService {
 
     boolean noEmptyInstance(User user);
 
+    boolean signIn(LoginSignInDTO loginSignInDTO);
+
     String makeHash(String pwd);
-
-
 }
